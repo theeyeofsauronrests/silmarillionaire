@@ -192,6 +192,7 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
     body: item.body,
     horizon: item.horizon,
     ownerName: item.owner_person_id ? personById.get(item.owner_person_id)?.display_name ?? null : null,
+    ownerPersonId: item.owner_person_id,
     teamId: item.team_id,
     teamName: item.team_id ? teamNameById.get(item.team_id) ?? UNASSIGNED_TEAM_NAME : UNASSIGNED_TEAM_NAME
   }));
@@ -332,6 +333,18 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
     images,
     links,
     teamDirectory,
-    people: flattenedPeople
+    people: flattenedPeople,
+    teamOptions: teams
+      .map((team) => ({
+        id: team.id,
+        name: team.name
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name)),
+    personOptions: people
+      .map((person) => ({
+        id: person.id,
+        name: person.display_name
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name))
   };
 }

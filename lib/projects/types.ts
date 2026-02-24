@@ -28,6 +28,7 @@ export type ProjectRoadmapCard = {
   body: string;
   horizon: RoadmapHorizon;
   ownerName: string | null;
+  ownerPersonId: string | null;
   teamId: string | null;
   teamName: string;
 };
@@ -61,4 +62,6 @@ export type ProjectDetailModel = {
   links: ProjectLinkModel[];
   teamDirectory: ProjectTeamDirectoryModel[];
   people: FlattenedProjectPersonModel[];
+  teamOptions: Array<{ id: string; name: string }>;
+  personOptions: Array<{ id: string; name: string }>;
 };
