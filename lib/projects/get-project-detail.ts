@@ -288,18 +288,28 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
   }));
 
   const imagesBucket = process.env.SUPABASE_PROJECT_IMAGES_BUCKET ?? "project-images";
-  const images: ProjectImageModel[] = (imagesResult.data ?? []).map((image) => {
-    const imageUrl = image.storage_path.startsWith("http://") || image.storage_path.startsWith("https://")
-      ? image.storage_path
-      : supabase.storage.from(imagesBucket).getPublicUrl(image.storage_path).data.publicUrl;
+  const images: ProjectImageModel[] = await Promise.all(
+    (imagesResult.data ?? []).map(async (image) => {
+      if (image.storage_path.startsWith("http://") || image.storage_path.startsWith("https://")) {
+        return {
+          id: image.id,
+          caption: image.caption,
+          storagePath: image.storage_path,
+          imageUrl: image.storage_path
+        };
+      }
 
-    return {
-      id: image.id,
-      caption: image.caption,
-      storagePath: image.storage_path,
-      imageUrl
-    };
-  });
+      const signed = await supabase.storage.from(imagesBucket).createSignedUrl(image.storage_path, 60 * 60);
+      const fallbackPublicUrl = supabase.storage.from(imagesBucket).getPublicUrl(image.storage_path).data.publicUrl;
+
+      return {
+        id: image.id,
+        caption: image.caption,
+        storagePath: image.storage_path,
+        imageUrl: signed.data?.signedUrl ?? fallbackPublicUrl
+      };
+    })
+  );
 
   const hasUnassignedRoadmap = roadmap.some((item) => item.teamId === null);
   if (hasUnassignedRoadmap) {
