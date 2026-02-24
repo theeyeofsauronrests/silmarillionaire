@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import type { AppRole } from "@/lib/auth/guards";
 import { requireUser } from "@/lib/auth/guards";
+import { hasMinimumRole } from "@/lib/auth/role-utils";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const FALLBACK_ROLE: AppRole = "viewer";
@@ -14,11 +15,11 @@ export async function getProjectEditAccess(projectId: string): Promise<{ canEdit
   const { authUser, profile } = await requireUser({ activeOnly: true });
   const role = resolveRole(profile?.role ?? (authUser.app_metadata.role as AppRole | undefined));
 
-  if (role === "admin") {
+  if (hasMinimumRole(role, "admin")) {
     return { canEdit: true, role };
   }
 
-  if (role !== "editor") {
+  if (!hasMinimumRole(role, "editor")) {
     return { canEdit: false, role };
   }
 

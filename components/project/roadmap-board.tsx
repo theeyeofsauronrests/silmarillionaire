@@ -1,4 +1,5 @@
 import { RoadmapColumn } from "@/components/project/roadmap-column";
+import { groupRoadmapByTeamAndHorizon } from "@/lib/roadmap/grouping";
 import type { ProjectRoadmapCard } from "@/lib/projects/types";
 
 type RoadmapBoardProps = {
@@ -17,7 +18,7 @@ export function RoadmapBoard({ roadmap }: RoadmapBoardProps) {
     );
   }
 
-  const teamNames = Array.from(new Set(roadmap.map((item) => item.teamName))).sort((a, b) => a.localeCompare(b));
+  const grouped = groupRoadmapByTeamAndHorizon(roadmap);
 
   return (
     <section className="rounded-lg border border-parchment-border bg-parchment-base p-5 shadow-parchment">
@@ -25,8 +26,11 @@ export function RoadmapBoard({ roadmap }: RoadmapBoardProps) {
       <p className="mt-1 text-sm text-parchment-ink/80">Swimlanes by team, organized into now/next/later horizons.</p>
 
       <div className="mt-4 space-y-4">
-        {teamNames.map((teamName) => {
-          const byTeam = roadmap.filter((item) => item.teamName === teamName);
+        {grouped.teamNames.map((teamName) => {
+          const byTeam = grouped.byTeamAndHorizon.get(teamName);
+          if (!byTeam) {
+            return null;
+          }
 
           return (
             <section key={teamName} className="rounded border border-parchment-border/70 bg-parchment-base/70 p-4">
@@ -36,7 +40,7 @@ export function RoadmapBoard({ roadmap }: RoadmapBoardProps) {
                   <RoadmapColumn
                     key={`${teamName}-${horizon}`}
                     horizon={horizon}
-                    items={byTeam.filter((item) => item.horizon === horizon)}
+                    items={byTeam.get(horizon) ?? []}
                   />
                 ))}
               </div>
