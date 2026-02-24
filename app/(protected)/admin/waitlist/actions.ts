@@ -84,6 +84,10 @@ export async function approveWaitlistAction(formData: FormData) {
   }
 
   const authUser = await ensureAuthUser(request.email, request.name);
+  const { error: resetError } = await supabase.auth.resetPasswordForEmail(request.email);
+  if (resetError) {
+    throw new Error(`Failed to send password setup email: ${resetError.message}`);
+  }
 
   const adminClient = createSupabaseAdminClient();
   const { error: metadataError } = await adminClient.auth.admin.updateUserById(authUser.id, {
