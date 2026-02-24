@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+
+# testing
+coverage
+playwright-report
+
+# next
+.next
+out
+
+# env
+.env.local
+.env*.local
+
+# misc
+.DS_Store
+*.log
+*.tsbuildinfo
+
+# local toolchain bootstrap
+.tools/
+bin/
