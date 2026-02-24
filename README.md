@@ -55,3 +55,14 @@ Required env vars:
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
+
+## Milestone 8 Hardening
+
+- Permission audit:
+  - `docs/PERMISSION_AUDIT.md`
+- Additional unit coverage:
+  - `tests/unit/role-utils.test.ts`
+  - `tests/unit/roadmap-grouping.test.ts`
+- Additional E2E coverage:
+  - `tests/e2e/public-pages.spec.ts`
+  - `tests/e2e/auth-gating.spec.ts` (opt-in with `E2E_AUTH_GATING=true`)

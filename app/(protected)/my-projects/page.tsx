@@ -3,13 +3,14 @@ import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import type { AppRole } from "@/lib/auth/guards";
 import { requireRole, requireUser } from "@/lib/auth/guards";
+import { hasMinimumRole } from "@/lib/auth/role-utils";
 import { getMyProjects } from "@/lib/projects/get-my-projects";
 
 export default async function MyProjectsPage() {
   const { authUser, profile } = await requireUser({ activeOnly: true });
   const role = (profile?.role ?? (authUser.app_metadata.role as AppRole | undefined) ?? "viewer") as AppRole;
 
-  if (role !== "editor" && role !== "admin") {
+  if (!hasMinimumRole(role, "editor")) {
     await requireRole("editor");
   }
 

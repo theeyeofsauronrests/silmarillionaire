@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 
+import { hasMinimumRole, isActiveStatus } from "@/lib/auth/role-utils";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export type AppRole = "viewer" | "editor" | "admin";
@@ -46,7 +47,7 @@ export async function requireUser(options: RequireUserOptions = {}) {
   const { activeOnly = true } = options;
   const context = await getAuthContext();
 
-  if (activeOnly && context.profile?.status !== "active") {
+  if (activeOnly && !isActiveStatus(context.profile?.status)) {
     redirect("/waitlist");
   }
 
@@ -56,12 +57,9 @@ export async function requireUser(options: RequireUserOptions = {}) {
 export async function requireRole(role: AppRole) {
   const { authUser, profile } = await requireUser({ activeOnly: true });
   const userRole = profile?.role ?? (authUser.app_metadata.role as AppRole | undefined);
+  const resolvedRole = userRole ?? "viewer";
 
-  if (role === "admin" && userRole !== "admin") {
-    redirect("/");
-  }
-
-  if (role === "editor" && userRole !== "editor" && userRole !== "admin") {
+  if (!hasMinimumRole(resolvedRole, role)) {
     redirect("/");
   }
 
