@@ -1,5 +1,7 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type WaitlistState = {
@@ -42,4 +44,10 @@ export async function waitlistAction(
     error: null,
     success: "Request submitted. An admin will review your access."
   };
+}
+
+export async function waitlistSignOutAction() {
+  const supabase = await createSupabaseServerClient();
+  await supabase.auth.signOut();
+  redirect("/login");
 }

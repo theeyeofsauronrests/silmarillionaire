@@ -18,7 +18,11 @@ export type AuthContext = {
   profile: UserProfile | null;
 };
 
-export async function requireUser() {
+type RequireUserOptions = {
+  activeOnly?: boolean;
+};
+
+async function getAuthContext(): Promise<AuthContext> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.getUser();
 
@@ -38,8 +42,19 @@ export async function requireUser() {
   } satisfies AuthContext;
 }
 
+export async function requireUser(options: RequireUserOptions = {}) {
+  const { activeOnly = true } = options;
+  const context = await getAuthContext();
+
+  if (activeOnly && context.profile?.status !== "active") {
+    redirect("/waitlist");
+  }
+
+  return context;
+}
+
 export async function requireRole(role: AppRole) {
-  const { authUser, profile } = await requireUser();
+  const { authUser, profile } = await requireUser({ activeOnly: true });
   const userRole = profile?.role ?? (authUser.app_metadata.role as AppRole | undefined);
 
   if (role === "admin" && userRole !== "admin") {

@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 const PUBLIC_PATHS = ["/login", "/waitlist"];
+type UserStatus = "pending" | "active" | "denied";
 type CookieToSet = {
   name: string;
   value: string;
@@ -47,6 +48,7 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const isPublic = PUBLIC_PATHS.some((path) => pathname === path);
+  const isWaitlist = pathname === "/waitlist";
 
   if (!user && !isPublic) {
     const loginUrl = request.nextUrl.clone();
@@ -54,7 +56,25 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (user && isPublic) {
+  if (!user) {
+    return response;
+  }
+
+  const { data: profile } = await supabase
+    .from("users")
+    .select("status")
+    .eq("id", user.id)
+    .maybeSingle<{ status: UserStatus }>();
+
+  const userStatus = profile?.status ?? "pending";
+
+  if (userStatus !== "active" && !isWaitlist) {
+    const waitlistUrl = request.nextUrl.clone();
+    waitlistUrl.pathname = "/waitlist";
+    return NextResponse.redirect(waitlistUrl);
+  }
+
+  if (userStatus === "active" && isPublic) {
     const appUrl = request.nextUrl.clone();
     appUrl.pathname = "/";
     return NextResponse.redirect(appUrl);
