@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 const EMAIL = process.env.E2E_EMAIL;
 const PASSWORD = process.env.E2E_PASSWORD;
 const PROJECT_ID = process.env.E2E_PROJECT_ID;
+const IMAGE_URL = process.env.E2E_IMAGE_URL;
 
 test.skip(!EMAIL || !PASSWORD || !PROJECT_ID, "Set E2E_EMAIL, E2E_PASSWORD, and E2E_PROJECT_ID to run project-detail QA.");
 
@@ -32,17 +33,19 @@ test("project detail QA: milestones CRUD, links/images controls, drag-drop roadm
     .click();
   await expect(assetsSection.locator(`a:has-text("${linkLabel}")`)).toHaveCount(0);
 
-  // Image CRUD (URL-backed)
-  const imageCaption = `QA Image ${unique}`;
-  const imageSection = assetsSection;
-  await page.getByPlaceholder("Storage path or image URL").fill("https://picsum.photos/seed/silmarillion/800/400");
-  await page.getByPlaceholder("Caption").fill(imageCaption);
-  await page.getByRole("button", { name: "Add Image" }).click();
-  await expect(imageSection.locator(`text=${imageCaption}`)).toBeVisible();
-  await imageSection
-    .locator("li", { has: page.locator("text=" + imageCaption) })
-    .getByRole("button", { name: "Remove" })
-    .click();
+  // Image CRUD (URL-backed, optional if allowlisted host is configured)
+  if (IMAGE_URL) {
+    const imageCaption = `QA Image ${unique}`;
+    const imageSection = assetsSection;
+    await page.getByPlaceholder("Storage path or image URL").fill(IMAGE_URL);
+    await page.getByPlaceholder("Caption").fill(imageCaption);
+    await page.getByRole("button", { name: "Add Image" }).click();
+    await expect(imageSection.locator(`text=${imageCaption}`)).toBeVisible();
+    await imageSection
+      .locator("li", { has: page.locator("text=" + imageCaption) })
+      .getByRole("button", { name: "Remove" })
+      .click();
+  }
 
   // Milestone CRUD
   const milestoneTitle = `QA Milestone ${unique}`;

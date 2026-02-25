@@ -9,6 +9,7 @@ import type {
   ProjectTeamDirectoryModel,
   TeamRole
 } from "@/lib/projects/types";
+import { isAllowedRemoteImageUrl } from "@/lib/security/remote-images";
 
 type ProjectRow = {
   id: string;
@@ -317,9 +318,14 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
   }));
 
   const imagesBucket = process.env.SUPABASE_PROJECT_IMAGES_BUCKET ?? "project-images";
-  const images: ProjectImageModel[] = await Promise.all(
+  const imageRows = await Promise.all(
     (imagesResult.data ?? []).map(async (image) => {
       if (image.storage_path.startsWith("http://") || image.storage_path.startsWith("https://")) {
+        const check = isAllowedRemoteImageUrl(image.storage_path);
+        if (!check.valid) {
+          return null;
+        }
+
         return {
           id: image.id,
           caption: image.caption,
@@ -339,6 +345,7 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
       };
     })
   );
+  const images: ProjectImageModel[] = imageRows.filter((image): image is ProjectImageModel => image !== null);
 
   const hasUnassignedRoadmap = roadmap.some((item) => item.teamId === null);
   if (hasUnassignedRoadmap) {

@@ -27,6 +27,7 @@ type DragPayload = {
 export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions }: DraggableRoadmapBoardProps) {
   const grouped = groupRoadmapByTeamAndHorizon(roadmap);
   const [dragging, setDragging] = useState<DragPayload | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const onDrop = (payload: DragPayload, horizon: "now" | "next" | "later", teamName: string) => {
@@ -38,12 +39,18 @@ export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions
           "";
 
     startTransition(async () => {
+      setError(null);
       const formData = new FormData();
       formData.set("projectId", projectId);
       formData.set("roadmapItemId", payload.roadmapItemId);
       formData.set("horizon", horizon);
       formData.set("teamId", teamId ?? "");
-      await moveRoadmapItemAction(formData);
+
+      try {
+        await moveRoadmapItemAction(formData);
+      } catch {
+        setError("Unable to move roadmap item right now. Refresh and try again.");
+      }
     });
   };
 
@@ -67,6 +74,7 @@ export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions
         {canEdit ? "Drag cards between swimlane columns to update now/next/later." : "Swimlanes by team, organized into now/next/later horizons."}
       </p>
       {isPending ? <p className="mt-2 text-xs text-parchment-ink/70">Updating roadmap...</p> : null}
+      {error ? <p className="mt-2 text-xs font-semibold text-red-700">{error}</p> : null}
 
       <div className="mt-4 space-y-4">
         {allTeamNames.map((teamName) => {
