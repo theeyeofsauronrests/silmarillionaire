@@ -19,7 +19,7 @@ export default async function WaitlistPage() {
       <div>
         <h1 className="text-4xl font-semibold text-parchment-green">Request Access</h1>
         <p className="mb-6 mt-2 text-sm text-parchment-ink/80">
-          Submit your details to join the Silmarillion waitlist.
+          Submit your details to join the Silmarillionaire waitlist.
         </p>
         <WaitlistForm />
       </div>

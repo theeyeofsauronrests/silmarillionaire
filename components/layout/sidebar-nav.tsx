@@ -12,7 +12,7 @@ export function SidebarNav() {
   return (
     <aside className="hidden w-60 shrink-0 border-r border-parchment-border/70 bg-parchment-base/70 p-4 lg:block">
       <p className="mb-6 border-b border-parchment-border/70 pb-3 text-xl font-semibold text-parchment-green">
-        Silmarillion
+        Silmarillionaire
       </p>
       <nav className="space-y-1">
         {LINKS.map((link) => (
