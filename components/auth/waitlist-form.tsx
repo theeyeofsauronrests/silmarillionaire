@@ -3,8 +3,13 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { initialWaitlistState, waitlistAction } from "@/app/(auth)/waitlist/actions";
+import { waitlistAction } from "@/app/(auth)/waitlist/actions";
 import { Button } from "@/components/ui/button";
+
+const initialWaitlistState = {
+  error: null,
+  success: null
+};
 
 export function WaitlistForm() {
   const [state, formAction, pending] = useActionState(waitlistAction, initialWaitlistState);

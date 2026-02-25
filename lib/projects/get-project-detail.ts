@@ -3,6 +3,7 @@ import type {
   FlattenedProjectPersonModel,
   ProjectDetailModel,
   ProjectImageModel,
+  ProjectKeyMilestone,
   ProjectLinkModel,
   ProjectRoadmapCard,
   ProjectTeamDirectoryModel,
@@ -60,6 +61,14 @@ type ProjectImageRow = {
   caption: string;
 };
 
+type KeyMilestoneRow = {
+  id: string;
+  title: string;
+  details: string;
+  milestone_date: string | null;
+  category: "event" | "release" | "exercise" | "other";
+};
+
 const UNASSIGNED_TEAM_ID = "unassigned-team";
 const UNASSIGNED_TEAM_NAME = "Unassigned";
 
@@ -75,7 +84,8 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
     projectTeamsResult,
     roadmapResult,
     linksResult,
-    imagesResult
+    imagesResult,
+    milestonesResult
   ] = await Promise.all([
     supabase
       .from("projects")
@@ -104,7 +114,14 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
       .select("id, storage_path, caption")
       .eq("project_id", projectId)
       .order("id", { ascending: true })
-      .returns<ProjectImageRow[]>()
+      .returns<ProjectImageRow[]>(),
+    supabase
+      .from("key_milestones")
+      .select("id, title, details, milestone_date, category")
+      .eq("project_id", projectId)
+      .order("milestone_date", { ascending: true, nullsFirst: false })
+      .order("created_at", { ascending: true })
+      .returns<KeyMilestoneRow[]>()
   ]);
 
   if (projectResult.error) {
@@ -124,6 +141,9 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
   }
   if (imagesResult.error) {
     throw new Error(`Failed to load project images: ${imagesResult.error.message}`);
+  }
+  if (milestonesResult.error) {
+    throw new Error(`Failed to load key milestones: ${milestonesResult.error.message}`);
   }
 
   const teamIds = new Set((projectTeamsResult.data ?? []).map((row) => row.team_id));
@@ -288,6 +308,14 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
     url: link.url
   }));
 
+  const milestones: ProjectKeyMilestone[] = (milestonesResult.data ?? []).map((milestone) => ({
+    id: milestone.id,
+    title: milestone.title,
+    details: milestone.details,
+    milestoneDate: milestone.milestone_date,
+    category: milestone.category
+  }));
+
   const imagesBucket = process.env.SUPABASE_PROJECT_IMAGES_BUCKET ?? "project-images";
   const images: ProjectImageModel[] = await Promise.all(
     (imagesResult.data ?? []).map(async (image) => {
@@ -332,6 +360,7 @@ export async function getProjectDetail(projectId: string): Promise<ProjectDetail
     roadmap,
     images,
     links,
+    milestones,
     teamDirectory,
     people: flattenedPeople,
     teamOptions: teams

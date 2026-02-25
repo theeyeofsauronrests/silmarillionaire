@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { initialLoginState, loginAction } from "@/app/(auth)/login/actions";
+import { loginAction } from "@/app/(auth)/login/actions";
 import { Button } from "@/components/ui/button";
+
+const initialLoginState = {
+  error: null
+};
 
 export function LoginForm() {
   const [state, formAction, pending] = useActionState(loginAction, initialLoginState);
