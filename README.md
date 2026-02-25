@@ -1,68 +1,129 @@
-# Silmarillion
+# Silmarillionaire
 
-Milestone 1 scaffold for the Silmarillion MVP.
+Silmarillionaire is an internal Accelint application for shared project intelligence.
 
-## Prerequisites
+It answers four daily operational questions:
+- What projects are active?
+- What is each project doing now, next, and later?
+- Which teams and people support each project?
+- How is staffing matrixed across initiatives?
 
+The product is intentionally styled as a refined fantasy dossier: parchment-toned, print-friendly, and editorial in feel.
+
+## Core Capabilities
+
+- Authenticated project directory and relationship lookup
+- Project detail dossiers with roadmap swimlanes, staffing views, links, images, and key milestones
+- Drag-and-drop roadmap movement for editors/admins
+- Consolidated roadmap view across all projects and teams
+- Core-mode roadmap (`/core`) for initiatives marked `is_core = true`
+- Admin operations:
+  - Waitlist approval and denial
+  - User role/status management
+  - Project creation and team assignment
+  - Project editor assignment management
+
+## Access Model
+
+Roles:
+- `viewer`
+- `editor`
+- `admin`
+
+High-level policy:
+- Active authenticated users can read project/people/team data.
+- Editors can mutate only assigned projects.
+- Admins can manage users, projects, assignments, and waitlist approvals.
+
+Enforcement is layered:
+- Route middleware + server guards
+- Server action authorization checks
+- Supabase RLS policies
+
+## Tech Stack
+
+- Next.js App Router
+- TypeScript (strict)
+- Tailwind CSS
+- Supabase Auth + Postgres + Storage
+- Vitest (unit)
+- Playwright (E2E)
+
+## Local Development
+
+Prerequisites:
 - Node.js 22+
-- Supabase project with auth enabled
+- Supabase project
 
-## Setup
-
-1. Install dependencies:
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-2. Configure environment variables:
+### 2. Configure environment
+
+Create `.env.local`:
 
 ```bash
-cp .env.example .env.local
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY
+# optional
+# SUPABASE_PROJECT_IMAGES_BUCKET=project-images
 ```
 
-3. Start development server:
+### 3. Apply schema and seed data
+
+Run in Supabase SQL editor:
+- `supabase/migrations/20260224131500_milestone2_schema.sql`
+- `supabase/migrations/20260225170000_milestone9_key_milestones.sql`
+- `supabase/seed.sql`
+
+### 4. Bootstrap admin user
+
+```bash
+ADMIN_EMAIL=admin@example.com ADMIN_NAME="Silmarillionaire Admin" npm run db:bootstrap-admin
+```
+
+### 5. Run the app
 
 ```bash
 npm run dev
 ```
 
-## Included in Milestone 1
+Open:
+- `http://localhost:3000/login`
 
-- Next.js App Router + strict TypeScript
-- Tailwind CSS with parchment-themed design tokens
-- Supabase auth integration
-- `/login` and `/waitlist` routes
-- Middleware-protected authenticated routes
-- Scaffolded route tree for all PRD pages
+## Supabase Health Check
 
-## Milestone 2 Assets
+Run:
+- `supabase/health-check.sql`
 
-- Authoritative schema + RLS policies:
-  - `supabase/migrations/20260224131500_milestone2_schema.sql`
-- Dev seed data (JERIC2O + matrix staffing):
-  - `supabase/seed.sql`
-- Admin bootstrap helper:
-  - `scripts/bootstrap-admin.mjs`
+This validates required tables, columns, RLS, policies, functions, triggers, storage bucket presence, and data counts.
 
-### Bootstrap Admin
+## Testing
 
 ```bash
-ADMIN_EMAIL=admin@example.com ADMIN_NAME=\"Silmarillion Admin\" npm run db:bootstrap-admin
+npm run lint
+npm run typecheck
+npm test
 ```
 
-Required env vars:
+E2E:
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
+```bash
+npm run test:e2e
+```
 
-## Milestone 8 Hardening
+## Important Paths
 
-- Permission audit:
-  - `docs/PERMISSION_AUDIT.md`
-- Additional unit coverage:
-  - `tests/unit/role-utils.test.ts`
-  - `tests/unit/roadmap-grouping.test.ts`
-- Additional E2E coverage:
-  - `tests/e2e/public-pages.spec.ts`
-  - `tests/e2e/auth-gating.spec.ts` (opt-in with `E2E_AUTH_GATING=true`)
+- App routes: `app/`
+- Shared UI components: `components/`
+- Data access and guards: `lib/`
+- Supabase SQL: `supabase/migrations/` and `supabase/seed.sql`
+- Permission audit: `docs/PERMISSION_AUDIT.md`
+
+## Product Direction
+
+Silmarillionaire is designed to be operational, not ornamental. The fantasy motif should support clarity and memorability while preserving enterprise usability, security, and maintainability.

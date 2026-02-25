@@ -16,8 +16,11 @@ const bodyFont = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Silmarillion",
-  description: "Shared project and staffing awareness for Accelint."
+  title: "Silmarillionaire",
+  description: "Shared project, staffing, and roadmap awareness for Accelint.",
+  icons: {
+    icon: "/favicon.svg"
+  }
 };
 
 export default function RootLayout({
