@@ -22,13 +22,14 @@ function renderPreview(items: string[]) {
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="rounded-lg border border-parchment-border bg-parchment-base/90 p-4 shadow-parchment">
+      <div className="mb-3 h-1 w-full rounded bg-parchment-gold/70" />
       <div className="mb-2 flex items-start justify-between gap-3">
         <div>
           <h3 className="text-xl font-semibold text-parchment-green">{project.name}</h3>
           <p className="text-xs uppercase tracking-wide text-parchment-ink/70">{project.codename}</p>
         </div>
         {project.isCore ? (
-          <span className="rounded border border-parchment-gold bg-parchment-gold/10 px-2 py-0.5 text-xs font-semibold text-parchment-gold">
+          <span className="rounded border border-parchment-gold bg-parchment-gold/15 px-2 py-0.5 text-xs font-semibold text-parchment-gold">
             Core
           </span>
         ) : null}

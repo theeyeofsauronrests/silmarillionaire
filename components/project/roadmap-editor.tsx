@@ -3,6 +3,7 @@ import {
   deleteRoadmapItemAction,
   updateRoadmapItemAction
 } from "@/app/(protected)/projects/[projectId]/actions";
+import { FormSubmitButton } from "@/components/ui/form-submit-button";
 import type { ProjectDetailModel } from "@/lib/projects/types";
 
 type RoadmapEditorProps = {
@@ -79,12 +80,11 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
         </div>
 
         <div>
-          <button
-            type="submit"
-            className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-parchment-base"
-          >
-            Add Roadmap Item
-          </button>
+          <FormSubmitButton
+            label="Add Roadmap Item"
+            pendingLabel="Adding..."
+            className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-[#191919]"
+          />
         </div>
       </form>
 
@@ -172,12 +172,10 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <button
-                  type="submit"
-                  className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-parchment-base"
-                >
-                  Save Item
-                </button>
+                <FormSubmitButton
+                  label="Save Item"
+                  className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-[#191919]"
+                />
 
                 <button
                   formAction={deleteRoadmapItemAction}

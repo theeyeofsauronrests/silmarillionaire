@@ -51,7 +51,7 @@ export function UserRoleEditor({ users, projects, assignments }: UserRoleEditorP
                 </label>
                 <button
                   type="submit"
-                  className="mt-3 rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base"
+                  className="mt-3 rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
                 >
                   Save Role
                 </button>
@@ -75,7 +75,7 @@ export function UserRoleEditor({ users, projects, assignments }: UserRoleEditorP
                 </label>
                 <button
                   type="submit"
-                  className="mt-3 rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base"
+                  className="mt-3 rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
                 >
                   Save Status
                 </button>
@@ -109,7 +109,7 @@ export function UserRoleEditor({ users, projects, assignments }: UserRoleEditorP
                             <input type="hidden" name="projectId" value={project.id} />
                             <button
                               type="submit"
-                              className="rounded border border-parchment-green bg-parchment-green px-2 py-1 text-xs font-semibold text-parchment-base"
+                              className="rounded border border-parchment-green bg-parchment-green px-2 py-1 text-xs font-semibold text-[#191919]"
                             >
                               Assign
                             </button>

@@ -1,5 +1,6 @@
 import { updateProjectAction } from "@/app/(protected)/projects/[projectId]/actions";
 import type { ProjectHeaderModel } from "@/lib/projects/types";
+import { FormSubmitButton } from "@/components/ui/form-submit-button";
 
 type ProjectEditorFormProps = {
   project: ProjectHeaderModel;
@@ -45,12 +46,10 @@ export function ProjectEditorForm({ project }: ProjectEditorFormProps) {
           />
         </label>
 
-        <button
-          type="submit"
-          className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-parchment-base"
-        >
-          Save Project
-        </button>
+        <FormSubmitButton
+          label="Save Project"
+          className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-[#191919]"
+        />
       </form>
     </section>
   );

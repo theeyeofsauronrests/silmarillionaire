@@ -8,8 +8,8 @@
 
 body {
   min-height: 100vh;
-  color: #f5f7fa;
-  background-color: #050608;
+  color: #fffafa;
+  background-color: #191919;
   font-family: var(--font-body), sans-serif;
 }
 
@@ -25,19 +25,26 @@ h4 {
   input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
   textarea,
   select {
-    background-color: #11151b !important;
-    color: #f5f7fa !important;
-    border-color: #3a414d !important;
+    background-color: #191919 !important;
+    color: #fffafa !important;
+    border-color: #e1e1d7 !important;
   }
 
   input::placeholder,
   textarea::placeholder {
-    color: #96a1b2 !important;
+    color: #c9c9bf !important;
   }
 
   option {
-    background-color: #0b0d10;
-    color: #f5f7fa;
+    background-color: #191919;
+    color: #fffafa;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono), monospace;
   }
 }
 

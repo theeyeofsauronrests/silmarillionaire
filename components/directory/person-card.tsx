@@ -28,10 +28,11 @@ function renderPreview(items: string[]) {
 export function PersonCard({ person }: PersonCardProps) {
   return (
     <article className="rounded-lg border border-parchment-border bg-parchment-base/90 p-4 shadow-parchment">
+      <div className="mb-3 h-1 w-full rounded bg-parchment-border/80" />
       <div className="mb-2 flex items-center gap-2">
         <h3 className="text-xl font-semibold text-parchment-green">{person.displayName}</h3>
         {person.isLeadership ? (
-          <span className="rounded border border-parchment-gold bg-parchment-gold/10 px-2 py-0.5 text-xs font-semibold text-parchment-gold">
+          <span className="rounded border border-parchment-gold bg-parchment-gold/15 px-2 py-0.5 text-xs font-semibold text-parchment-gold">
             Leadership
           </span>
         ) : null}

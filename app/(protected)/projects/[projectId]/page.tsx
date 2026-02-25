@@ -38,7 +38,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             <div className="mt-2 flex flex-wrap gap-2">
               <a
                 href="#assets-editor"
-                className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base"
+                className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
               >
                 Edit Links and Images
               </a>

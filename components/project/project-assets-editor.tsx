@@ -5,6 +5,7 @@ import {
   deleteProjectLinkAction
 } from "@/app/(protected)/projects/[projectId]/actions";
 import type { ProjectImageModel, ProjectLinkModel } from "@/lib/projects/types";
+import { FormSubmitButton } from "@/components/ui/form-submit-button";
 
 type ProjectAssetsEditorProps = {
   projectId: string;
@@ -27,9 +28,11 @@ export function ProjectAssetsEditor({ projectId, links, images }: ProjectAssetsE
             <input type="hidden" name="projectId" value={projectId} />
             <input name="label" placeholder="Label" required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm" />
             <input name="url" placeholder="https://..." required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm" />
-            <button type="submit" className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base">
-              Add Link
-            </button>
+            <FormSubmitButton
+              label="Add Link"
+              pendingLabel="Adding..."
+              className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
+            />
           </form>
 
           <ul className="mt-3 space-y-2">
@@ -61,9 +64,11 @@ export function ProjectAssetsEditor({ projectId, links, images }: ProjectAssetsE
               className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm"
             />
             <input name="caption" placeholder="Caption" required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm" />
-            <button type="submit" className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base">
-              Add Image
-            </button>
+            <FormSubmitButton
+              label="Add Image"
+              pendingLabel="Adding..."
+              className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
+            />
           </form>
 
           <ul className="mt-3 space-y-2">
