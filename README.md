@@ -60,6 +60,12 @@ Enforcement is layered:
 - Vitest (unit)
 - Playwright (E2E)
 
+## Versioning and Releases
+
+- Current version: `1.0.0`
+- Changelog: [CHANGELOG.md](./CHANGELOG.md)
+- Release notes: [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
+
 ## Local Development
 
 Prerequisites:
