@@ -9,11 +9,6 @@ type WaitlistState = {
   success: string | null;
 };
 
-export const initialWaitlistState: WaitlistState = {
-  error: null,
-  success: null
-};
-
 export async function waitlistAction(
   _prevState: WaitlistState,
   formData: FormData

@@ -8,10 +8,6 @@ type LoginState = {
   error: string | null;
 };
 
-export const initialLoginState: LoginState = {
-  error: null
-};
-
 export async function loginAction(_prevState: LoginState, formData: FormData): Promise<LoginState> {
   const email = formData.get("email");
   const password = formData.get("password");

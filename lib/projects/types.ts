@@ -33,6 +33,14 @@ export type ProjectRoadmapCard = {
   teamName: string;
 };
 
+export type ProjectKeyMilestone = {
+  id: string;
+  title: string;
+  details: string;
+  milestoneDate: string | null;
+  category: "event" | "release" | "exercise" | "other";
+};
+
 export type TeamMemberModel = {
   personId: string;
   displayName: string;
@@ -60,6 +68,7 @@ export type ProjectDetailModel = {
   roadmap: ProjectRoadmapCard[];
   images: ProjectImageModel[];
   links: ProjectLinkModel[];
+  milestones: ProjectKeyMilestone[];
   teamDirectory: ProjectTeamDirectoryModel[];
   people: FlattenedProjectPersonModel[];
   teamOptions: Array<{ id: string; name: string }>;

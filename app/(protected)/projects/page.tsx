@@ -1,16 +1,16 @@
 import { PageHeader } from "@/components/layout/page-header";
-import { ProjectList } from "@/components/projects/project-list";
+import { ConsolidatedRoadmap } from "@/components/projects/consolidated-roadmap";
 import { requireUser } from "@/lib/auth/guards";
-import { getDirectoryData } from "@/lib/directory/get-directory-data";
+import { getConsolidatedRoadmap } from "@/lib/projects/get-consolidated-roadmap";
 
 export default async function ProjectsPage() {
-  await requireUser();
-  const directoryData = await getDirectoryData();
+  await requireUser({ activeOnly: true });
+  const roadmap = await getConsolidatedRoadmap();
 
   return (
     <section>
-      <PageHeader title="Projects" description="Browse all projects and open their detailed dossiers." />
-      <ProjectList projects={directoryData.projects} />
+      <PageHeader title="Projects Roadmap" description="Consolidated roadmap across all projects and team swimlanes." />
+      <ConsolidatedRoadmap data={roadmap} />
     </section>
   );
 }

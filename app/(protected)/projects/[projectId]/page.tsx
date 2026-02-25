@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 
+import { DraggableRoadmapBoard } from "@/components/project/draggable-roadmap-board";
 import { ImageGallery } from "@/components/project/image-gallery";
+import { KeyMilestonesEditor } from "@/components/project/key-milestones-editor";
+import { KeyMilestones } from "@/components/project/key-milestones";
 import { LinksList } from "@/components/project/links-list";
 import { PersonList } from "@/components/project/person-list";
+import { ProjectAssetsEditor } from "@/components/project/project-assets-editor";
 import { ProjectEditorForm } from "@/components/project/project-editor-form";
 import { ProjectHeader } from "@/components/project/project-header";
-import { RoadmapEditor } from "@/components/project/roadmap-editor";
-import { RoadmapBoard } from "@/components/project/roadmap-board";
 import { TeamDirectory } from "@/components/project/team-directory";
 import { requireUser } from "@/lib/auth/guards";
 import { getProjectEditAccess } from "@/lib/auth/project-access";
@@ -34,14 +36,18 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         <p className="mt-3 text-sm text-parchment-ink/85">{detail.project.description}</p>
       </section>
 
-      <RoadmapBoard roadmap={detail.roadmap} />
+      <DraggableRoadmapBoard
+        projectId={detail.project.id}
+        roadmap={detail.roadmap}
+        canEdit={access.canEdit}
+        teamOptions={detail.teamOptions}
+      />
+      <KeyMilestones milestones={detail.milestones} />
       {access.canEdit ? (
-        <RoadmapEditor
-          projectId={detail.project.id}
-          roadmap={detail.roadmap}
-          teamOptions={detail.teamOptions}
-          personOptions={detail.personOptions}
-        />
+        <>
+          <KeyMilestonesEditor projectId={detail.project.id} milestones={detail.milestones} />
+          <ProjectAssetsEditor projectId={detail.project.id} links={detail.links} images={detail.images} />
+        </>
       ) : null}
       <ImageGallery images={detail.images} />
       <LinksList links={detail.links} />
