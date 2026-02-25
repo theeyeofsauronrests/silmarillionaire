@@ -1,6 +1,6 @@
 # Silmarillionaire
 
-Silmarillionaire is an internal Accelint application for shared project intelligence.
+Silmarillionaire is an internal hub-and-spoke planning application for shared project intelligence.
 
 It answers four daily operational questions:
 - What projects are active?
@@ -8,20 +8,31 @@ It answers four daily operational questions:
 - Which teams and people support each project?
 - How is staffing matrixed across initiatives?
 
-The product is intentionally styled as a refined fantasy dossier: parchment-toned, print-friendly, and editorial in feel.
+The product is intentionally styled as a dark, high-contrast operational workspace optimized for quick scanning and editing.
 
 ## Core Capabilities
 
 - Authenticated project directory and relationship lookup
 - Project detail dossiers with roadmap swimlanes, staffing views, links, images, and key milestones
 - Drag-and-drop roadmap movement for editors/admins
-- Consolidated roadmap view across all projects and teams
-- Core-mode roadmap (`/core`) for initiatives marked `is_core = true`
+- Consolidated roadmap views across all projects and teams
+- Core roadmap mode (`/core`) for hub-team initiatives marked `is_core = true`
 - Admin operations:
   - Waitlist approval and denial
   - User role/status management
   - Project creation and team assignment
   - Project editor assignment management
+
+## Operating Model
+
+Silmarillionaire supports a hub-and-spoke team structure:
+- Hub teams (Core) provide shared capabilities and cross-cutting initiatives.
+- Spoke projects deliver mission outcomes and draw staffing from one or more teams.
+- Contributors can be matrixed across multiple teams and projects.
+
+Planning views:
+- `/projects`: consolidated roadmap grouped by project (good for spoke-program review)
+- `/core`: roadmap grouped by team (good for hub-team operational planning)
 
 ## Access Model
 
@@ -84,7 +95,7 @@ Run in Supabase SQL editor:
 ### 4. Bootstrap admin user
 
 ```bash
-ADMIN_EMAIL=admin@example.com ADMIN_NAME="Silmarillionaire Admin" npm run db:bootstrap-admin
+ADMIN_EMAIL=admin@example.com ADMIN_NAME="Platform Admin" npm run db:bootstrap-admin
 ```
 
 ### 5. Run the app
@@ -138,4 +149,4 @@ npm run test:e2e:qa
 
 ## Product Direction
 
-Silmarillionaire is designed to be operational, not ornamental. The fantasy motif should support clarity and memorability while preserving enterprise usability, security, and maintainability.
+Silmarillionaire is designed to keep hub and spoke teams aligned on delivery, staffing, and short-horizon execution. The UI prioritizes clarity, speed, and controlled editing over decorative complexity.

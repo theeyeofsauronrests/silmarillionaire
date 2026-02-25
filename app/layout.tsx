@@ -17,7 +17,7 @@ const bodyFont = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Silmarillionaire",
-  description: "Shared project, staffing, and roadmap awareness for Accelint.",
+  description: "Shared project, staffing, and roadmap awareness for hub-and-spoke teams.",
   icons: {
     icon: "/favicon.svg"
   }

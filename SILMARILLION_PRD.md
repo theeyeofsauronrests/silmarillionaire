@@ -1,6 +1,6 @@
 # SILMARILLION – PRD + BUILD SPEC (FOR CODEX)
 
-You are building **Silmarillion**, an internal web application for Accelint’s UX Software Factory.
+You are building **Silmarillion**, an internal web application for a UX software delivery organization.
 
 The app provides shared situational awareness of:
 
@@ -222,7 +222,7 @@ Projects marked `is_core = true` appear in `/core`.
 
 * Swimlanes organized by TEAM
 * Columns: Now / Next / Later
-* Multiple initiatives (Conductor, Maestro, DevTK, etc.) represented as roadmap items or grouped projects
+* Multiple initiatives represented as roadmap items or grouped projects
 
 Core UI must clearly distinguish itself from normal projects.
 
@@ -404,7 +404,7 @@ Never rely solely on client checks.
 
 Create seed data:
 
-Project: **JERIC2O**
+Project: **Project Alpha**
 
 Teams:
 
@@ -416,12 +416,12 @@ Three designers matrixed across teams.
 
 One designer also assigned to:
 
-* AARO team
-* AARO project
+* A second team
+* A second project
 
 Leadership person:
 
-* Holen “Money” Holmquist
+* A designated leadership member
 
 Demonstrate:
 
@@ -493,7 +493,7 @@ Demonstrate:
 
 * Create tables
 * RLS policies
-* Seed JERIC2O scenario
+* Seed representative hub-and-spoke scenario
 * Admin bootstrap user
 
 ## Milestone 3 – Directory
