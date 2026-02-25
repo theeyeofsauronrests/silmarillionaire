@@ -8,10 +8,10 @@ type TopNavProps = {
 
 export function TopNav({ userEmail }: TopNavProps) {
   return (
-    <nav className="sticky top-0 z-10 flex items-center justify-between border-b border-parchment-border/70 bg-parchment-base/90 px-4 py-3 backdrop-blur">
+    <nav className="sticky top-0 z-10 flex items-center justify-between border-b-2 border-parchment-gold/70 bg-[#1d2322] px-4 py-3 backdrop-blur">
       <p className="text-sm text-parchment-green">{userEmail}</p>
       <form action={signOutAction}>
-        <Button type="submit" variant="ghost" className="text-xs">
+        <Button type="submit" variant="ghost" className="border-parchment-gold/70 text-xs text-parchment-gold">
           Sign out
         </Button>
       </form>

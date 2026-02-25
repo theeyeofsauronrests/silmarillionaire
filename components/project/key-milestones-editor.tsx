@@ -4,6 +4,7 @@ import {
   updateKeyMilestoneAction
 } from "@/app/(protected)/projects/[projectId]/actions";
 import type { ProjectKeyMilestone } from "@/lib/projects/types";
+import { FormSubmitButton } from "@/components/ui/form-submit-button";
 
 type KeyMilestonesEditorProps = {
   projectId: string;
@@ -32,9 +33,11 @@ export function KeyMilestonesEditor({ projectId, milestones }: KeyMilestonesEdit
             ))}
           </select>
         </div>
-        <button type="submit" className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base">
-          Add Milestone
-        </button>
+        <FormSubmitButton
+          label="Add Milestone"
+          pendingLabel="Adding..."
+          className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
+        />
       </form>
 
       <div className="mt-3 space-y-3">
@@ -55,9 +58,10 @@ export function KeyMilestonesEditor({ projectId, milestones }: KeyMilestonesEdit
               </select>
             </div>
             <div className="flex gap-2">
-              <button type="submit" className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base">
-                Save
-              </button>
+              <FormSubmitButton
+                label="Save"
+                className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
+              />
               <button formAction={deleteKeyMilestoneAction} type="submit" className="rounded border border-red-700 bg-red-700 px-3 py-1.5 text-xs font-semibold text-white">
                 Delete
               </button>

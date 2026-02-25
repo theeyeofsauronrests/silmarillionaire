@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Anek_Latin, Onest, Noto_Sans_Mono } from "next/font/google";
 
 import "./globals.css";
 
-const headingFont = Space_Grotesk({
+const headingFont = Anek_Latin({
   subsets: ["latin"],
   variable: "--font-heading",
-  weight: ["500", "600", "700"]
+  weight: ["500", "600", "700", "800"]
 });
 
-const bodyFont = JetBrains_Mono({
+const bodyFont = Onest({
   subsets: ["latin"],
   variable: "--font-body",
+  weight: ["400", "500", "600"]
+});
+
+const monoFont = Noto_Sans_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
   weight: ["400", "500", "600"]
 });
 
@@ -28,7 +34,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${headingFont.variable} ${bodyFont.variable} antialiased`}>
+      <body className={`${headingFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased`}>
         {children}
       </body>
     </html>

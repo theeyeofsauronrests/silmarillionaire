@@ -20,6 +20,7 @@ function renderPreview(items: string[]) {
 export function TeamCard({ team }: TeamCardProps) {
   return (
     <article className="rounded-lg border border-parchment-border bg-parchment-base/90 p-4 shadow-parchment">
+      <div className="mb-3 h-1 w-full rounded bg-parchment-green/70" />
       <h3 className="text-xl font-semibold text-parchment-green">{team.name}</h3>
       <p className="mb-3 mt-1 line-clamp-2 text-sm text-parchment-ink/85">{team.description}</p>
 

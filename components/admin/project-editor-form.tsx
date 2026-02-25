@@ -42,7 +42,7 @@ export function ProjectEditorForm({ projects, teams, projectTeams }: ProjectEdit
 
           <button
             type="submit"
-            className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-parchment-base"
+            className="rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-[#191919]"
           >
             Create Project
           </button>
@@ -109,7 +109,7 @@ export function ProjectEditorForm({ projects, teams, projectTeams }: ProjectEdit
 
                 <button
                   type="submit"
-                  className="mt-3 rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-parchment-base"
+                  className="mt-3 rounded border border-parchment-green bg-parchment-green px-4 py-2 text-sm font-semibold text-[#191919]"
                 >
                   Save Project
                 </button>

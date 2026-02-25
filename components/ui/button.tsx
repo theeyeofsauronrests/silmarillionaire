@@ -10,9 +10,9 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-parchment-gold text-parchment-base border border-parchment-gold hover:brightness-95",
+    "bg-parchment-gold text-[#191919] border border-parchment-gold hover:brightness-95",
   secondary:
-    "bg-parchment-base text-parchment-green border border-parchment-green hover:bg-parchment-green/5",
+    "bg-transparent text-parchment-green border border-parchment-green hover:bg-parchment-green/10",
   ghost:
     "bg-transparent text-parchment-ink border border-parchment-border hover:bg-parchment-border/15"
 };

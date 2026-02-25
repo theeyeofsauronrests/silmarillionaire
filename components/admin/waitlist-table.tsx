@@ -43,7 +43,7 @@ export function WaitlistTable({ requests }: WaitlistTableProps) {
                     <input type="hidden" name="requestId" value={request.id} />
                     <button
                       type="submit"
-                      className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base"
+                      className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-[#191919]"
                     >
                       Approve
                     </button>

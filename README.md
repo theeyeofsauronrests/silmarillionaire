@@ -62,9 +62,11 @@ Enforcement is layered:
 
 ## Versioning and Releases
 
-- Current version: `1.0.0`
+- Current version: `1.0.1`
 - Changelog: [CHANGELOG.md](./CHANGELOG.md)
-- Release notes: [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
+- Release notes:
+  - [docs/releases/v1.0.1.md](./docs/releases/v1.0.1.md)
+  - [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
 
 ## Local Development
 
