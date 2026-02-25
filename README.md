@@ -71,6 +71,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
 SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY
 # optional
 # SUPABASE_PROJECT_IMAGES_BUCKET=project-images
+# NEXT_PUBLIC_ALLOWED_IMAGE_HOSTS=images.example.com,cdn.example.com
 ```
 
 ### 3. Apply schema and seed data
@@ -123,6 +124,7 @@ E2E_BASE_URL=http://127.0.0.1:3010 \
 E2E_EMAIL=you@domain.com \
 E2E_PASSWORD='your-password' \
 E2E_PROJECT_ID='your-project-uuid' \
+E2E_IMAGE_URL='https://images.example.com/path/to/image.jpg' \
 npm run test:e2e:qa
 ```
 

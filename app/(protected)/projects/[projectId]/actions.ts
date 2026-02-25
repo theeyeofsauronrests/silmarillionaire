@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { requireProjectEditAccess } from "@/lib/auth/project-access";
+import { isAllowedRemoteImageUrl } from "@/lib/security/remote-images";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const VALID_HORIZONS = new Set(["now", "next", "later"]);
@@ -207,6 +208,14 @@ export async function createProjectImageAction(formData: FormData) {
   const projectId = requireNonEmptyString(formData.get("projectId"), "projectId");
   const storagePath = requireNonEmptyString(formData.get("storagePath"), "storagePath");
   const caption = requireNonEmptyString(formData.get("caption"), "caption");
+
+  if (storagePath.startsWith("http://") || storagePath.startsWith("https://")) {
+    const check = isAllowedRemoteImageUrl(storagePath);
+    if (!check.valid) {
+      throw new Error(`Invalid image URL. ${check.reason}`);
+    }
+  }
+
   await requireProjectEditAccess(projectId);
 
   const supabase = await createSupabaseServerClient();

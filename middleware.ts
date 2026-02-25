@@ -18,9 +18,19 @@ export async function middleware(request: NextRequest) {
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const { pathname } = request.nextUrl;
+  const isPublic = PUBLIC_PATHS.some((path) => pathname === path);
+  const isWaitlist = pathname === "/waitlist";
 
   if (!url || !anonKey) {
-    return response;
+    if (isPublic) {
+      return response;
+    }
+
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/login";
+    loginUrl.searchParams.set("error", "missing_auth_env");
+    return NextResponse.redirect(loginUrl);
   }
 
   const supabase = createServerClient(url, anonKey, {
@@ -45,10 +55,6 @@ export async function middleware(request: NextRequest) {
   const {
     data: { user }
   } = await supabase.auth.getUser();
-
-  const { pathname } = request.nextUrl;
-  const isPublic = PUBLIC_PATHS.some((path) => pathname === path);
-  const isWaitlist = pathname === "/waitlist";
 
   if (!user && !isPublic) {
     const loginUrl = request.nextUrl.clone();
