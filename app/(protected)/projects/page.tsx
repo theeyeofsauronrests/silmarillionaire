@@ -9,8 +9,8 @@ export default async function ProjectsPage() {
 
   return (
     <section>
-      <PageHeader title="Projects Roadmap" description="Consolidated roadmap across all projects and team swimlanes." />
-      <ConsolidatedRoadmap data={roadmap} />
+      <PageHeader title="Projects Roadmap" description="Consolidated roadmap grouped by project, with Now / Next / Later columns." />
+      <ConsolidatedRoadmap data={roadmap} groupBy="project" />
     </section>
   );
 }

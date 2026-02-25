@@ -20,7 +20,7 @@ export function LoginForm() {
           Email
         </label>
         <input
-          className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2 text-sm"
+          className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm"
           id="email"
           name="email"
           type="email"
@@ -34,7 +34,7 @@ export function LoginForm() {
           Password
         </label>
         <input
-          className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2 text-sm"
+          className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm"
           id="password"
           name="password"
           type="password"

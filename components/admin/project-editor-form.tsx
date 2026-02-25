@@ -18,17 +18,17 @@ export function ProjectEditorForm({ projects, teams, projectTeams }: ProjectEdit
           <div className="grid gap-3 md:grid-cols-2">
             <label className="block text-sm">
               <span className="mb-1 block font-semibold text-parchment-green">Name</span>
-              <input name="name" required className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2" />
+              <input name="name" required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2" />
             </label>
             <label className="block text-sm">
               <span className="mb-1 block font-semibold text-parchment-green">Codename</span>
-              <input name="codename" required className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2" />
+              <input name="codename" required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2" />
             </label>
           </div>
 
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-parchment-green">Description</span>
-            <textarea name="description" required rows={3} className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2" />
+            <textarea name="description" required rows={3} className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2" />
           </label>
 
           <label className="inline-flex items-center gap-2 text-sm font-semibold text-parchment-green">
@@ -72,7 +72,7 @@ export function ProjectEditorForm({ projects, teams, projectTeams }: ProjectEdit
                       name="name"
                       defaultValue={project.name}
                       required
-                      className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                      className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                     />
                   </label>
 
@@ -82,7 +82,7 @@ export function ProjectEditorForm({ projects, teams, projectTeams }: ProjectEdit
                       name="codename"
                       defaultValue={project.codename}
                       required
-                      className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                      className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                     />
                   </label>
                 </div>
@@ -94,7 +94,7 @@ export function ProjectEditorForm({ projects, teams, projectTeams }: ProjectEdit
                     defaultValue={project.description}
                     required
                     rows={3}
-                    className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                    className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                   />
                 </label>
 

@@ -10,19 +10,19 @@ const config: Config = {
     extend: {
       colors: {
         parchment: {
-          base: "#f8f3e8",
-          ink: "#2f261b",
-          border: "#cdb89a",
-          gold: "#b88b3c",
-          green: "#2e4f3f"
+          base: "#0b0d10",
+          ink: "#f5f7fa",
+          border: "#2a2f37",
+          gold: "#d7dce3",
+          green: "#9ea8b7"
         }
       },
       boxShadow: {
-        parchment: "0 1px 0 #ffffff, 0 0 0 1px rgba(176, 143, 94, 0.25)"
+        parchment: "0 0 0 1px rgba(215, 220, 227, 0.12), 0 16px 32px rgba(0, 0, 0, 0.45)"
       },
       backgroundImage: {
         "parchment-grain":
-          "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6) 0 1px, transparent 1px), radial-gradient(circle at 80% 40%, rgba(189,157,112,0.08) 0 1px, transparent 1px)"
+          "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)"
       }
     }
   },

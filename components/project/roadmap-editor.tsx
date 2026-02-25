@@ -24,23 +24,23 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
       <h2 className="text-2xl font-semibold text-parchment-green">Roadmap Editing</h2>
       <p className="mt-1 text-sm text-parchment-ink/80">Create, update, and remove roadmap items.</p>
 
-      <form action={createRoadmapItemAction} className="mt-4 grid gap-3 rounded border border-parchment-border bg-white/35 p-4">
+      <form action={createRoadmapItemAction} className="mt-4 grid gap-3 rounded border border-parchment-border bg-parchment-base/70 p-4">
         <input type="hidden" name="projectId" value={projectId} />
 
         <label className="block text-sm">
           <span className="mb-1 block font-semibold text-parchment-green">Title</span>
-          <input name="title" required className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2" />
+          <input name="title" required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2" />
         </label>
 
         <label className="block text-sm">
           <span className="mb-1 block font-semibold text-parchment-green">Body</span>
-          <textarea name="body" required rows={3} className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2" />
+          <textarea name="body" required rows={3} className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2" />
         </label>
 
         <div className="grid gap-3 md:grid-cols-3">
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-parchment-green">Horizon</span>
-            <select name="horizon" defaultValue="now" className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2">
+            <select name="horizon" defaultValue="now" className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2">
               {HORIZONS.map((horizon) => (
                 <option key={horizon.value} value={horizon.value}>
                   {horizon.label}
@@ -51,7 +51,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
 
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-parchment-green">Team</span>
-            <select name="teamId" defaultValue="" className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2">
+            <select name="teamId" defaultValue="" className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2">
               <option value="">Unassigned</option>
               {teamOptions.map((team) => (
                 <option key={team.id} value={team.id}>
@@ -66,7 +66,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
             <select
               name="ownerPersonId"
               defaultValue=""
-              className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+              className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
             >
               <option value="">Unassigned</option>
               {personOptions.map((person) => (
@@ -96,7 +96,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
             <form
               key={item.id}
               action={updateRoadmapItemAction}
-              className="grid gap-3 rounded border border-parchment-border bg-white/35 p-4"
+              className="grid gap-3 rounded border border-parchment-border bg-parchment-base/70 p-4"
             >
               <input type="hidden" name="projectId" value={projectId} />
               <input type="hidden" name="roadmapItemId" value={item.id} />
@@ -107,7 +107,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
                   name="title"
                   required
                   defaultValue={item.title}
-                  className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                  className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                 />
               </label>
 
@@ -118,7 +118,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
                   required
                   rows={3}
                   defaultValue={item.body}
-                  className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                  className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                 />
               </label>
 
@@ -128,7 +128,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
                   <select
                     name="horizon"
                     defaultValue={item.horizon}
-                    className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                    className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                   >
                     {HORIZONS.map((horizon) => (
                       <option key={horizon.value} value={horizon.value}>
@@ -143,7 +143,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
                   <select
                     name="teamId"
                     defaultValue={item.teamId ?? ""}
-                    className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                    className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                   >
                     <option value="">Unassigned</option>
                     {teamOptions.map((team) => (
@@ -159,7 +159,7 @@ export function RoadmapEditor({ projectId, roadmap, teamOptions, personOptions }
                   <select
                     name="ownerPersonId"
                     defaultValue={item.ownerPersonId ?? ""}
-                    className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                    className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                   >
                     <option value="">Unassigned</option>
                     {personOptions.map((person) => (

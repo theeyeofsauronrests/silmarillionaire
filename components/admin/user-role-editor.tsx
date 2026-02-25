@@ -37,11 +37,11 @@ export function UserRoleEditor({ users, projects, assignments }: UserRoleEditorP
             </header>
 
             <div className="grid gap-4 lg:grid-cols-2">
-              <form action={updateUserRoleAction} className="rounded border border-parchment-border bg-white/35 p-3">
+              <form action={updateUserRoleAction} className="rounded border border-parchment-border bg-parchment-base/70 p-3">
                 <input type="hidden" name="userId" value={user.id} />
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-parchment-green">Role</span>
-                  <select name="role" defaultValue={user.role} className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2">
+                  <select name="role" defaultValue={user.role} className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2">
                     {ROLE_OPTIONS.map((role) => (
                       <option key={role} value={role}>
                         {role}
@@ -57,14 +57,14 @@ export function UserRoleEditor({ users, projects, assignments }: UserRoleEditorP
                 </button>
               </form>
 
-              <form action={updateUserStatusAction} className="rounded border border-parchment-border bg-white/35 p-3">
+              <form action={updateUserStatusAction} className="rounded border border-parchment-border bg-parchment-base/70 p-3">
                 <input type="hidden" name="userId" value={user.id} />
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-parchment-green">Status</span>
                   <select
                     name="status"
                     defaultValue={user.status}
-                    className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+                    className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
                   >
                     {STATUS_OPTIONS.map((status) => (
                       <option key={status} value={status}>
@@ -82,7 +82,7 @@ export function UserRoleEditor({ users, projects, assignments }: UserRoleEditorP
               </form>
             </div>
 
-            <div className="mt-4 rounded border border-parchment-border bg-white/35 p-3">
+            <div className="mt-4 rounded border border-parchment-border bg-parchment-base/70 p-3">
               <h4 className="text-sm font-semibold text-parchment-green">Project Edit Rights</h4>
               {projects.length === 0 ? (
                 <p className="mt-2 text-sm text-parchment-ink/80">No projects available.</p>
