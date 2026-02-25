@@ -14,17 +14,19 @@ type ProjectAssetsEditorProps = {
 
 export function ProjectAssetsEditor({ projectId, links, images }: ProjectAssetsEditorProps) {
   return (
-    <section className="rounded-lg border border-parchment-border bg-parchment-base p-5 shadow-parchment">
+    <section id="assets-editor" className="rounded-lg border border-parchment-border bg-parchment-base p-5 shadow-parchment">
       <h2 className="text-2xl font-semibold text-parchment-green">Links and Images Editing</h2>
-      <p className="mt-1 text-sm text-parchment-ink/80">Add/remove important links and image references for this project.</p>
+      <p className="mt-1 text-sm text-parchment-ink/80">
+        Add/remove important links and image references for this project. Add an image via storage path or allowlisted HTTPS host.
+      </p>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
-        <section className="rounded border border-parchment-border bg-white/35 p-4">
+        <section className="rounded border border-parchment-border bg-parchment-base/70 p-4">
           <h3 className="text-lg font-semibold text-parchment-green">Important Links</h3>
           <form action={createProjectLinkAction} className="mt-3 space-y-2">
             <input type="hidden" name="projectId" value={projectId} />
-            <input name="label" placeholder="Label" required className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2 text-sm" />
-            <input name="url" placeholder="https://..." required className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2 text-sm" />
+            <input name="label" placeholder="Label" required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm" />
+            <input name="url" placeholder="https://..." required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm" />
             <button type="submit" className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base">
               Add Link
             </button>
@@ -48,7 +50,7 @@ export function ProjectAssetsEditor({ projectId, links, images }: ProjectAssetsE
           </ul>
         </section>
 
-        <section className="rounded border border-parchment-border bg-white/35 p-4">
+        <section className="rounded border border-parchment-border bg-parchment-base/70 p-4">
           <h3 className="text-lg font-semibold text-parchment-green">Images</h3>
           <form action={createProjectImageAction} className="mt-3 space-y-2">
             <input type="hidden" name="projectId" value={projectId} />
@@ -56,9 +58,9 @@ export function ProjectAssetsEditor({ projectId, links, images }: ProjectAssetsE
               name="storagePath"
               placeholder="Storage path or image URL"
               required
-              className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2 text-sm"
+              className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm"
             />
-            <input name="caption" placeholder="Caption" required className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2 text-sm" />
+            <input name="caption" placeholder="Caption" required className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2 text-sm" />
             <button type="submit" className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base">
               Add Image
             </button>

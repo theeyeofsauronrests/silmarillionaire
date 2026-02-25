@@ -30,6 +30,39 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   return (
     <section className="space-y-5">
       <ProjectHeader project={detail.project} />
+      <section className="rounded-lg border border-parchment-border bg-parchment-base p-4 shadow-parchment">
+        <h2 className="text-lg font-semibold text-parchment-green">Edit Access</h2>
+        {access.canEdit ? (
+          <div className="mt-2 text-sm text-parchment-ink/85">
+            <p>You can edit this project.</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <a
+                href="#assets-editor"
+                className="rounded border border-parchment-green bg-parchment-green px-3 py-1.5 text-xs font-semibold text-parchment-base"
+              >
+                Edit Links and Images
+              </a>
+              <a
+                href="#milestones-editor"
+                className="rounded border border-parchment-border px-3 py-1.5 text-xs font-semibold text-parchment-ink hover:bg-parchment-border/20"
+              >
+                Edit Milestones
+              </a>
+              <a
+                href="#project-editor"
+                className="rounded border border-parchment-border px-3 py-1.5 text-xs font-semibold text-parchment-ink hover:bg-parchment-border/20"
+              >
+                Edit Project Details
+              </a>
+            </div>
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-parchment-ink/85">
+            Your role is <span className="font-semibold">{access.role}</span>. You can view but not edit this project.
+            Ask an admin to assign you as a project editor in Admin → Users.
+          </p>
+        )}
+      </section>
 
       <section className="rounded-lg border border-parchment-border bg-parchment-base p-5 shadow-parchment">
         <h2 className="text-2xl font-semibold text-parchment-green">Description</h2>

@@ -28,9 +28,12 @@ export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions
   const grouped = groupRoadmapByTeamAndHorizon(roadmap);
   const [dragging, setDragging] = useState<DragPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [activeDropLane, setActiveDropLane] = useState<string | null>(null);
+  const [dropMessage, setDropMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const onDrop = (payload: DragPayload, horizon: "now" | "next" | "later", teamName: string) => {
+    const laneLabel = `${teamName} / ${HORIZON_LABELS[horizon]}`;
     const teamId =
       teamName === "Unassigned"
         ? ""
@@ -40,6 +43,7 @@ export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions
 
     startTransition(async () => {
       setError(null);
+      setDropMessage(`Dropped in ${laneLabel}. Saving...`);
       const formData = new FormData();
       formData.set("projectId", projectId);
       formData.set("roadmapItemId", payload.roadmapItemId);
@@ -48,8 +52,10 @@ export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions
 
       try {
         await moveRoadmapItemAction(formData);
+        setDropMessage(`Saved to ${laneLabel}.`);
       } catch {
         setError("Unable to move roadmap item right now. Refresh and try again.");
+        setDropMessage(null);
       }
     });
   };
@@ -74,6 +80,7 @@ export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions
         {canEdit ? "Drag cards between swimlane columns to update now/next/later." : "Swimlanes by team, organized into now/next/later horizons."}
       </p>
       {isPending ? <p className="mt-2 text-xs text-parchment-ink/70">Updating roadmap...</p> : null}
+      {dropMessage ? <p className="mt-2 text-xs font-semibold text-parchment-gold">{dropMessage}</p> : null}
       {error ? <p className="mt-2 text-xs font-semibold text-red-700">{error}</p> : null}
 
       <div className="mt-4 space-y-4">
@@ -93,23 +100,48 @@ export function DraggableRoadmapBoard({ projectId, roadmap, canEdit, teamOptions
               <div className="grid gap-3 lg:grid-cols-3">
                 {HORIZONS.map((horizon) => {
                   const items = lanes.get(horizon) ?? [];
+                  const laneKey = `${teamName}:${horizon}`;
+                  const isActiveDropLane = activeDropLane === laneKey;
                   return (
                     <section
                       key={`${teamName}-${horizon}`}
-                      className="rounded border border-parchment-border bg-white/30 p-3"
+                      className={`rounded border bg-white/30 p-3 transition ${
+                        isActiveDropLane ? "border-parchment-gold ring-2 ring-parchment-gold/70" : "border-parchment-border"
+                      }`}
+                      onDragEnter={(event) => {
+                        if (!canEdit) return;
+                        event.preventDefault();
+                        setActiveDropLane(laneKey);
+                      }}
                       onDragOver={(event) => {
                         if (!canEdit) return;
                         event.preventDefault();
+                        if (activeDropLane !== laneKey) {
+                          setActiveDropLane(laneKey);
+                        }
+                      }}
+                      onDragLeave={(event) => {
+                        if (!canEdit) return;
+                        event.preventDefault();
+                        if (activeDropLane === laneKey) {
+                          setActiveDropLane(null);
+                        }
                       }}
                       onDrop={(event) => {
                         if (!canEdit) return;
                         event.preventDefault();
                         if (!dragging) return;
+                        setActiveDropLane(null);
                         onDrop(dragging, horizon, teamName);
                         setDragging(null);
                       }}
                     >
                       <h4 className="mb-2 text-lg font-semibold text-parchment-green">{HORIZON_LABELS[horizon]}</h4>
+                      {canEdit && isActiveDropLane ? (
+                        <p className="mb-2 rounded border border-parchment-gold/60 bg-parchment-gold/10 px-2 py-1 text-xs font-semibold text-parchment-gold">
+                          Drop here
+                        </p>
+                      ) : null}
                       <div className="space-y-2">
                         {items.length === 0 ? (
                           <p className="rounded border border-dashed border-parchment-border p-3 text-sm text-parchment-ink/70">No items</p>

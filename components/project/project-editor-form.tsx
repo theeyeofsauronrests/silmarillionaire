@@ -7,7 +7,7 @@ type ProjectEditorFormProps = {
 
 export function ProjectEditorForm({ project }: ProjectEditorFormProps) {
   return (
-    <section className="rounded-lg border border-parchment-border bg-parchment-base p-5 shadow-parchment">
+    <section id="project-editor" className="rounded-lg border border-parchment-border bg-parchment-base p-5 shadow-parchment">
       <h2 className="text-2xl font-semibold text-parchment-green">Project Editing</h2>
       <p className="mt-1 text-sm text-parchment-ink/80">Update project metadata visible across the directory.</p>
 
@@ -20,7 +20,7 @@ export function ProjectEditorForm({ project }: ProjectEditorFormProps) {
             name="name"
             defaultValue={project.name}
             required
-            className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+            className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
           />
         </label>
 
@@ -30,7 +30,7 @@ export function ProjectEditorForm({ project }: ProjectEditorFormProps) {
             name="codename"
             defaultValue={project.codename}
             required
-            className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+            className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
           />
         </label>
 
@@ -41,7 +41,7 @@ export function ProjectEditorForm({ project }: ProjectEditorFormProps) {
             defaultValue={project.description}
             required
             rows={4}
-            className="w-full rounded border border-parchment-border bg-white/80 px-3 py-2"
+            className="w-full rounded border border-parchment-border bg-parchment-base px-3 py-2"
           />
         </label>
 
