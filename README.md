@@ -116,6 +116,16 @@ E2E:
 npm run test:e2e
 ```
 
+Focused project-detail QA regression (drag/drop + milestones CRUD + links/images controls):
+
+```bash
+E2E_BASE_URL=http://127.0.0.1:3010 \
+E2E_EMAIL=you@domain.com \
+E2E_PASSWORD='your-password' \
+E2E_PROJECT_ID='your-project-uuid' \
+npm run test:e2e:qa
+```
+
 ## Important Paths
 
 - App routes: `app/`
